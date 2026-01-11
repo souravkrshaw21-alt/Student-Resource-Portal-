@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="KKCEM Student Resource Portal">
+  <title>Student Resource Portal | KKCEM</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <div class="main_box">
+    
+    <video autoplay loop muted playsinline class="back-video">
+      <source src="images/background.mp4" type="video/mp4">
+    </video>
+    <div class="video_overlay"></div>
+
+    <header class="top_header">
+      <div class="header_left">
+        <div class="menu_toggle_btn" onclick="toggleSidebar()">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="portal_title_top">
+          <i class="fa-solid fa-graduation-cap"></i> Student Resource Portal
+        </div>
+      </div>
+
+      <div class="header_right">
+        <button class="login_btn_top" id="headerLoginBtn" onclick="openLoginModal('student')">
+          <span>Login</span> <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        </button>
+        
+        <div class="user_profile hidden" id="userProfileDisplay">
+          <div class="user_avatar"><i class="fa-solid fa-user"></i></div>
+          <span id="userNameDisplay">User</span>
+          <button class="logout_icon_btn" onclick="handleLogout()" title="Logout">
+            <i class="fa-solid fa-power-off"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="sidebar_overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar_header">
+        <h3>Student Resource Portal</h3>
+        <div class="close_sidebar_btn" onclick="closeSidebar()">
+          <i class="fa-solid fa-times"></i>
+        </div>
+      </div>
+      
+      <ul class="menu_list">
+        <li class="active"><a href="#" onclick="handleNav('publicView')"><i class="fa-solid fa-house"></i> Home</a></li>
+        
+        <li class="category_title">Public Info</li>
+        <li><a href="#"><i class="fa-solid fa-landmark"></i> About College</a></li>
+        <li><a href="#"><i class="fa-solid fa-layer-group"></i> Departments</a></li>
+        <li><a href="#"><i class="fa-solid fa-phone"></i> Contact Us</a></li>
+
+        <li class="category_title">Secure Area</li>
+        <li><a href="#" onclick="handleNavProtected('dashboardView')"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+        <li><a href="#" onclick="handleNavProtected('dashboardView')"><i class="fa-solid fa-file-pdf"></i> Notes Repository</a></li>
+        
+        <li class="category_title">Account</li>
+        <li id="menuLoginItem"><a href="#" onclick="openLoginModal('student'); closeSidebar()"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+        <li id="menuLogoutItem" class="hidden"><a href="#" onclick="handleLogout()"><i class="fa-solid fa-power-off"></i> Logout</a></li>
+      </ul>
+    </div>
+
+    <div class="page_content_container">
+        
+        <section id="publicView" class="view_section active">
+        <div class="content_wrapper">
+            <div class="info_card fade-in-up">
+            
+            <div class="logo_container">
+                <img src="images/logo.png" alt="KKCEM Logo" class="college_logo">
+            </div>
+
+            <h1>Student Resource Portal</h1>
+            <p class="subtitle">Empowering Engineers Since 2010</p>
+
+            <div class="college_intro">
+                <p>
+                Welcome to the official <strong>Student Portal</strong>. Access public announcements regarding admissions and departments below. 
+                Please <strong>log in</strong> to access internal notes and attendance.
+                </p>
+            </div>
+
+            <div class="features_grid">
+                <div class="feature_item">
+                <div class="icon_box"><i class="fa-solid fa-bullhorn"></i></div>
+                <span>Notices</span>
+                </div>
+                <div class="feature_item">
+                <div class="icon_box"><i class="fa-solid fa-building-columns"></i></div>
+                <span>Depts</span>
+                </div>
+                <div class="feature_item" onclick="handleNavProtected('dashboardView')">
+                <div class="icon_box"><i class="fa-solid fa-download"></i></div>
+                <span>Notes 🔒</span>
+                </div>
+            </div>
+            </div>
+        </div>
+        </section>
+
+        <section id="dashboardView" class="view_section hidden">
+        <div class="dashboard_container fade-in-up">
+            
+            <div class="dash_header">
+            <div>
+                <h2 id="dashWelcome">Dashboard</h2>
+                <p id="dashRole" class="role_badge">Student</p>
+            </div>
+            <div class="date_display">
+                <i class="fa-regular fa-calendar"></i> Today
+            </div>
+            </div>
+
+            <div id="teacherControls" class="control_panel hidden">
+            <h3><i class="fa-solid fa-chalkboard-user"></i> Faculty Actions</h3>
+            <div class="action_buttons">
+                <button class="action_btn"><i class="fa-solid fa-upload"></i> Upload Notes</button>
+                <button class="action_btn"><i class="fa-solid fa-pen-to-square"></i> Post Notice</button>
+                <button class="action_btn"><i class="fa-solid fa-check-double"></i> Attendance</button>
+            </div>
+            </div>
+
+            <div class="dash_grid">
+            
+            <div class="dash_card">
+                <div class="card_head">
+                <h3>Academic Notes</h3>
+                <i class="fa-solid fa-book card_icon"></i>
+                </div>
+                <div class="search_bar">
+                <input type="text" placeholder="Search Subject...">
+                <button><i class="fa-solid fa-search"></i></button>
+                </div>
+                <ul class="data_list">
+                <li>
+                    <div class="file_info">
+                    <span class="file_name">Data Structures</span>
+                    <span class="file_code">CS-301</span>
+                    </div>
+                    <button class="download_icon" title="Download"><i class="fa-solid fa-cloud-arrow-down"></i></button>
+                </li>
+                <li>
+                    <div class="file_info">
+                    <span class="file_name">Digital Electronics</span>
+                    <span class="file_code">EC-202</span>
+                    </div>
+                    <button class="download_icon" title="Download"><i class="fa-solid fa-cloud-arrow-down"></i></button>
+                </li>
+                <li>
+                    <div class="file_info">
+                    <span class="file_name">Eng. Mathematics II</span>
+                    <span class="file_code">MA-102</span>
+                    </div>
+                    <button class="download_icon" title="Download"><i class="fa-solid fa-cloud-arrow-down"></i></button>
+                </li>
+                </ul>
+            </div>
+
+            <div class="dash_card">
+                <div class="card_head">
+                <h3>Notice Board</h3>
+                <i class="fa-solid fa-bell card_icon"></i>
+                </div>
+                <ul class="data_list notice_list">
+                <li>
+                    <div class="notice_date">
+                    <span class="day">12</span><span class="month">JAN</span>
+                    </div>
+                    <div class="notice_content">
+                    <span class="notice_title">Mid-Sem Schedule</span>
+                    <span class="notice_desc">Exam schedule released for all branches.</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="notice_date">
+                    <span class="day">10</span><span class="month">JAN</span>
+                    </div>
+                    <div class="notice_content">
+                    <span class="notice_title">Makar Sankranti</span>
+                    <span class="notice_desc">Holiday declared on Jan 14th.</span>
+                    </div>
+                </li>
+                </ul>
+            </div>
+
+            </div>
+        </div>
+        </section>
+
+    </div>
+
+    <footer class="main_footer">
+        <div class="footer_links">
+            <a href="#">Privacy Policy</a>
+            <span class="divider">|</span>
+            <a href="#">Terms of Service</a>
+            <span class="divider">|</span>
+            <a href="#">Contact Support</a>
+        </div>
+        <div class="copyright">
+            &copy; 2026 KKCM College - Easy Study. All Rights Reserved.
+        </div>
+        <div class="social_icons">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+    </footer>
+
+
+    <div class="modal_overlay" id="modalOverlay">
+      <div class="modal_box scale-in">
+        <i class="fa-solid fa-times" id="closeLogin"></i>
+        
+        <div class="login_tabs">
+          <button class="tab_btn active" id="tabStudent" onclick="switchTab('student')">Student</button>
+          <button class="tab_btn" id="tabTeacher" onclick="switchTab('teacher')">Teacher</button>
+        </div>
+
+        <div class="login_header">
+          <h2 id="loginTitle">Student Login</h2>
+          <p>Please enter your credentials.</p>
+        </div>
+
+        <form id="loginForm">
+          <div class="form_group">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="usernameInput" placeholder="Roll Number" required>
+          </div>
+          <div class="form_group">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="Password" required>
+          </div>
+          <button type="submit" class="submit_btn">Secure Login <i class="fa-solid fa-arrow-right"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="chatbot_wrapper">
+      <div class="chat_window hidden" id="chatWindow">
+        <div class="chat_header">
+          <div class="chat_title">
+            <i class="fa-solid fa-robot"></i> AI Assistant
+          </div>
+          <i class="fa-solid fa-times close_chat" onclick="toggleChat()"></i>
+        </div>
+        <div class="chat_body" id="chatBody">
+          <div class="bot_msg">Hello! 👋 I can answer questions about Notes, Exams, Holidays, or Admissions. Ask me anything!</div>
+        </div>
+        <div class="chat_input">
+          <input type="text" id="chatInput" placeholder="Type a message...">
+          <button onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </div>
+      <button class="chat_trigger" onclick="toggleChat()">
+        <i class="fa-solid fa-comment-dots"></i>
+      </button>
+    </div>
+
+  </div>
+
+  <script src="js/main.js"></script>
+
+</body>
+</html>
